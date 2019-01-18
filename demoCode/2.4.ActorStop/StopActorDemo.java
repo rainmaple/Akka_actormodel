@@ -1,8 +1,8 @@
-import akka.actor.*;
+ï»¿import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
-//´´½¨Ö´ĞĞÈÎÎñ£¬±»ÀÕÁîÍ£Ö¹µÄworkerActor
+//åˆ›å»ºæ‰§è¡Œä»»åŠ¡ï¼Œè¢«å‹’ä»¤åœæ­¢çš„workerActor
 class WorkerActor extends UntypedActor{
 
     LoggingAdapter log = Logging.getLogger(this.getContext().system(),this);
@@ -16,7 +16,7 @@ class WorkerActor extends UntypedActor{
     }
 }
 /***
- * ´´½¨¼à¿Ø×Ó¼¶ActorµÄActor
+ * åˆ›å»ºç›‘æ§å­çº§Actorçš„Actor
  */
 class WatchActor extends UntypedActor{
     LoggingAdapter log = Logging.getLogger(this.getContext().system(),this);
@@ -24,9 +24,9 @@ class WatchActor extends UntypedActor{
 
     @Override
     public void preStart() throws Exception{
-        //´´½¨×Ó¼¶Actor,¸Ã·½·¨Æô¶¯ºó×Ô¶¯µ÷ÓÃ
+        //åˆ›å»ºå­çº§Actor,è¯¥æ–¹æ³•å¯åŠ¨åè‡ªåŠ¨è°ƒç”¨
         child =getContext().actorOf(Props.create(WorkerActor.class),"child-workerActor");
-        //ÊµÏÖ¼à¿Ø
+        //å®ç°ç›‘æ§
         getContext().watch(child);
     }
     @Override
@@ -40,9 +40,9 @@ class WatchActor extends UntypedActor{
                 getContext().stop(child);
             }
         }else if(message instanceof Terminated){
-	//µ±ActorÕæÕıÍ£Ö¹ÁË»áÊÕµ½TerminatedÀàĞÍµÄÏûÏ¢
+	//å½“ActorçœŸæ­£åœæ­¢äº†ä¼šæ”¶åˆ°Terminatedç±»å‹çš„æ¶ˆæ¯
             Terminated t = (Terminated) message;
-            log.info("¼à¿Øµ½"+t.getActor()+"Í£Ö¹ÁË");
+            log.info("ç›‘æ§åˆ°"+t.getActor()+"åœæ­¢äº†");
         }else {
             unhandled(message);
         }
@@ -53,11 +53,11 @@ public class StopActorDemo {
         ActorSystem system =ActorSystem.create("sys");
         ActorRef ref =system.actorOf(Props.create(WatchActor.class),
                 "workerActor");
-        //ÊµÏÖ¹Ø±ÕµÄÈıÖÖ·½Ê½
+        //å®ç°å…³é—­çš„ä¸‰ç§æ–¹å¼
         //system.stop(ref);
         //ref.tell(PoisonPill.getInstance(),ActorRef.noSender());
        // ref.tell(Kill.getInstance(),ActorRef.noSender());
-        //KillµÄ·½Ê½»áÅ×³öÒì³££¬Ò»°ã±»¸¸¼¶Supervisor´¦Àí£¬Ä¬ÈÏ´¦Àí¾ÍÊÇÍ£µôActor
+        //Killçš„æ–¹å¼ä¼šæŠ›å‡ºå¼‚å¸¸ï¼Œä¸€èˆ¬è¢«çˆ¶çº§Supervisorå¤„ç†ï¼Œé»˜è®¤å¤„ç†å°±æ˜¯åœæ‰Actor
         ref.tell("stopChild",ActorRef.noSender());
     }
 }

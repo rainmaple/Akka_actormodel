@@ -1,10 +1,10 @@
-import akka.actor.ActorRef;
+ï»¿import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 /**
- * ¶¨ÒåÄ¿±ê½ÓÊÕActor
+ * å®šä¹‰ç›®æ ‡æ¥æ”¶Actor
  */
 class TargetActor extends UntypedActor{
     @Override
@@ -14,8 +14,8 @@ class TargetActor extends UntypedActor{
 }
 
 /**
- * ¶¨Òå×ª·¢Actor
- * ½¨Á¢actorË½ÓĞÒıÓÃÔÚ»Øµ÷º¯ÊıÖĞÒì²½½ÓÊÕ·¢ËÍÕßËù´«µİÏûÏ¢£¬²¢½øĞĞ×ª·¢
+ * å®šä¹‰è½¬å‘Actor
+ * å»ºç«‹actorç§æœ‰å¼•ç”¨åœ¨å›è°ƒå‡½æ•°ä¸­å¼‚æ­¥æ¥æ”¶å‘é€è€…æ‰€ä¼ é€’æ¶ˆæ¯ï¼Œå¹¶è¿›è¡Œè½¬å‘
  */
 class ForwardActor extends UntypedActor{
     private ActorRef target =getContext().actorOf(Props.create(TargetActor.class),"tagetActor");
@@ -26,10 +26,10 @@ class ForwardActor extends UntypedActor{
 }
 
 /**
- * ¶¨ÒåÏûÏ¢·¢ËÍÀà
- *»ñµÃsenderµÄÒıÓÃ
- *»ñµÃ×ª·¢ÕßµÄÒıÓÃ
- * Ê¹ÓÃ×ª·¢ÕßÀ´·¢ËÍsenderµÄÏûÏ¢
+ * å®šä¹‰æ¶ˆæ¯å‘é€ç±»
+ *è·å¾—senderçš„å¼•ç”¨
+ *è·å¾—è½¬å‘è€…çš„å¼•ç”¨
+ * ä½¿ç”¨è½¬å‘è€…æ¥å‘é€senderçš„æ¶ˆæ¯
  */
 public class ForwardActorDemo extends UntypedActor {
 

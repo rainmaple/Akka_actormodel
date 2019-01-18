@@ -1,13 +1,13 @@
-import Entity.EmpEntity;
+ï»¿import Entity.EmpEntity;
 import akka.actor.UntypedActor;
 import akka.japi.Procedure;
 
 /***
- * ·â×°Á½¸ö´¦ÀíĞĞÎª£¬ÀûÓÃ¹Ø¼üÊı¾İµÄ±ä»¯À´ÇĞ»»´¦ÀíĞĞÎª
- * Ê¹ÓÃProcedure<Object>À´¶ÔĞĞÎª½øĞĞ·â×°£¬³éÈ¡Íê±Ïºó¿ÉÊ¹ÓÃbecome/unbecome À´¶ÔĞĞÎª½øĞĞÇĞ»»
- * unbecome Ä¬ÈÏÇĞ»»»ØÉÏÒ»¸öĞĞÎª
- * EmpEntityÎªÊµÌåÀàµÄ·â×°Bean
- * ¶ÔÓÚDemoµÄ²âÊÔÀàÎªProcedureShiftDemoTest
+ * å°è£…ä¸¤ä¸ªå¤„ç†è¡Œä¸ºï¼Œåˆ©ç”¨å…³é”®æ•°æ®çš„å˜åŒ–æ¥åˆ‡æ¢å¤„ç†è¡Œä¸º
+ * ä½¿ç”¨Procedure<Object>æ¥å¯¹è¡Œä¸ºè¿›è¡Œå°è£…ï¼ŒæŠ½å–å®Œæ¯•åå¯ä½¿ç”¨become/unbecome æ¥å¯¹è¡Œä¸ºè¿›è¡Œåˆ‡æ¢
+ * unbecome é»˜è®¤åˆ‡æ¢å›ä¸Šä¸€ä¸ªè¡Œä¸º
+ * EmpEntityä¸ºå®ä½“ç±»çš„å°è£…Bean
+ * å¯¹äºDemoçš„æµ‹è¯•ç±»ä¸ºProcedureShiftDemoTest
  */
 public class ProcedureShiftDemo extends UntypedActor {
 
@@ -21,9 +21,9 @@ public class ProcedureShiftDemo extends UntypedActor {
             }
             else{
                 EmpEntity emp = (EmpEntity) message;
-                //System.out.println("²âÊÔĞ½Ë®µã"+emp.getName()+"  "+emp.getSalary());
+                //System.out.println("æµ‹è¯•è–ªæ°´ç‚¹"+emp.getName()+"  "+emp.getSalary());
                 double result = emp.getSalary()*1.8;
-                System.out.println("Ô±¹¤"+emp.getName()+"µÄ½±½ğÎª£º"+result);
+                System.out.println("å‘˜å·¥"+emp.getName()+"çš„å¥–é‡‘ä¸ºï¼š"+result);
 
             }
         }
@@ -39,7 +39,7 @@ public class ProcedureShiftDemo extends UntypedActor {
             else{
                 EmpEntity emp = (EmpEntity) message;
                 double result = emp.getSalary()*1.5;
-                System.out.println("Ô±¹¤"+emp.getName()+"µÄ½±½ğÎª£º"+result);
+                System.out.println("å‘˜å·¥"+emp.getName()+"çš„å¥–é‡‘ä¸ºï¼š"+result);
 
             }
         }

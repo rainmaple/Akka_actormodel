@@ -1,4 +1,4 @@
-ProcedureShiftDemo
+ï»¿ProcedureShiftDemo
 import Entity.EmpEntity;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -6,8 +6,8 @@ import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 /**
- * ²âÊÔÀà
- * ²âÊÔĞĞÎª×é¼şµÄÇĞ»»
+ * æµ‹è¯•ç±»
+ * æµ‹è¯•è¡Œä¸ºç»„ä»¶çš„åˆ‡æ¢
  */
 public class ProcedureShiftDemoTest extends UntypedActor{
     public static void main(String args[]){
@@ -15,12 +15,12 @@ public class ProcedureShiftDemoTest extends UntypedActor{
         ActorRef ref =system.actorOf(Props.create(ProcedureShiftDemo.class),
                 "ProcedureShiftDemo");
         ref.tell("1",ActorRef.noSender());
-        ref.tell(new EmpEntity("Ğ¡Àî",10000),ActorRef.noSender());
-        ref.tell(new EmpEntity("Ğ¡ÕÅ",20000),ActorRef.noSender());
+        ref.tell(new EmpEntity("å°æ",10000),ActorRef.noSender());
+        ref.tell(new EmpEntity("å°å¼ ",20000),ActorRef.noSender());
         ref.tell("end",ActorRef.noSender());
         ref.tell("2",ActorRef.noSender());
-        ref.tell(new EmpEntity("Ğ¡ÌÕ",10000),ActorRef.noSender());
-        ref.tell(new EmpEntity("Ğ¡Åí",20000),ActorRef.noSender());
+        ref.tell(new EmpEntity("å°é™¶",10000),ActorRef.noSender());
+        ref.tell(new EmpEntity("å°å½­",20000),ActorRef.noSender());
        // ref.tell("end",ActorRef.noSender());
     }
 

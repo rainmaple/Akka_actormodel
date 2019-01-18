@@ -1,9 +1,9 @@
-import akka.actor.*;
+ï»¿import akka.actor.*;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
 /**
- * ½¨Á¢ËùÒªË÷ÒıµÄÄ¿±êActor
+ * å»ºç«‹æ‰€è¦ç´¢å¼•çš„ç›®æ ‡Actor
  */
 class TargetActorf extends UntypedActor{
     @Override
@@ -13,15 +13,15 @@ class TargetActorf extends UntypedActor{
 }
 
 /**
- * ½¨Á¢Ë÷Òı Ê¹ÓÃµÄActor£¨Ë÷ÒıÆ÷£©
- * ÔÚÆäÖĞÊ¹ÓÃ¹¹Ôì¿ì½¨Á¢Ë÷ÒıÄ¿±êµÄÒıÓÃ
- * »Øµ÷º¯ÊıÖĞÊ¹ÓÃ¿ÚÁîÆ¥Åä·½Ê½½øÈë¹¦ÄÜÄ£¿é
- * ÏëÒªÊ¹ÓÃÄ¿±êµÄActorRefĞèÒªÏÈÏòActorSelection·¢ËÍÒ»¸öIdentityÑéÖ¤ÏûÏ¢
- * ÑéÖ¤Í¨¹ı¶Ô·½×Ô¶¯·µ»ØIdentity¶ÔÏó°üº¬ActorRef
+ * å»ºç«‹ç´¢å¼• ä½¿ç”¨çš„Actorï¼ˆç´¢å¼•å™¨ï¼‰
+ * åœ¨å…¶ä¸­ä½¿ç”¨æ„é€ å¿«å»ºç«‹ç´¢å¼•ç›®æ ‡çš„å¼•ç”¨
+ * å›è°ƒå‡½æ•°ä¸­ä½¿ç”¨å£ä»¤åŒ¹é…æ–¹å¼è¿›å…¥åŠŸèƒ½æ¨¡å—
+ * æƒ³è¦ä½¿ç”¨ç›®æ ‡çš„ActorReféœ€è¦å…ˆå‘ActorSelectionå‘é€ä¸€ä¸ªIdentityéªŒè¯æ¶ˆæ¯
+ * éªŒè¯é€šè¿‡å¯¹æ–¹è‡ªåŠ¨è¿”å›Identityå¯¹è±¡åŒ…å«ActorRef
  */
 class LookupActor extends UntypedActor{
     private ActorRef target =null;
-    //±àĞ´¹¹Ôì¿éÃ¿ÊµÀı»¯Ò»´Î¾Í»áÔËĞĞÒ»´Î
+    //ç¼–å†™æ„é€ å—æ¯å®ä¾‹åŒ–ä¸€æ¬¡å°±ä¼šè¿è¡Œä¸€æ¬¡
     {
         target =getContext().actorOf(Props.create(TargetActorf.class),"targetActor");
     }

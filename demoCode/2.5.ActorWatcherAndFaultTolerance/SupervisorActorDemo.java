@@ -1,4 +1,4 @@
-import akka.actor.*;
+ï»¿import akka.actor.*;
 
 import akka.japi.Function;
 import scala.Option;
@@ -10,43 +10,43 @@ import java.sql.SQLException;
 
 
 /**
- * Actor ²ÉÓÃ¸¸¼à¶½µÄÄ£Ê½À´½øĞĞ¼à¶½¹ÜÀí¼´»á¼à¶½×ÓActorµÄÒì³£Çé¿ö
- * ¸ù¾İÄ¬ÈÏ»òÕßÔ¤ÏÈÉèÖÃºÃµÄ´¦ÀíÂß¼­À´È·¶¨
- * 1£©»Ö¸´
- * 2£©Í£Ö¹
- * 3£©ÖØÆô»òÕßÉÏËİÖÁ¸¸¼¶
- *Õâ¸ödemoÓÃÀ´ÑİÊ¾Õû¸ö¼à¶½²ßÂÔµÄ¹ı³Ì
+ * Actor é‡‡ç”¨çˆ¶ç›‘ç£çš„æ¨¡å¼æ¥è¿›è¡Œç›‘ç£ç®¡ç†å³ä¼šç›‘ç£å­Actorçš„å¼‚å¸¸æƒ…å†µ
+ * æ ¹æ®é»˜è®¤æˆ–è€…é¢„å…ˆè®¾ç½®å¥½çš„å¤„ç†é€»è¾‘æ¥ç¡®å®š
+ * 1ï¼‰æ¢å¤
+ * 2ï¼‰åœæ­¢
+ * 3ï¼‰é‡å¯æˆ–è€…ä¸Šæº¯è‡³çˆ¶çº§
+ *è¿™ä¸ªdemoç”¨æ¥æ¼”ç¤ºæ•´ä¸ªç›‘ç£ç­–ç•¥çš„è¿‡ç¨‹
  */
 public class SuperVisorActorDemo extends UntypedActor {
 
-    //Ä¬ÈÏ»á²ÉÓÃÒ»¸ö³öÎÊÌâ¾ÍÕÒµ±ÊÂÈËµÄ²ßÂÔoneforone
-    //²ßÂÔstrategyĞèÒªµÄµÚÈı¸ö¶ÔÏódeciderĞèÒª¶¨ÒåFunction¶ÔÏó£¬Ê¹ÓÃapply·µ»Ø¼à¶½Ö¸Áî
+    //é»˜è®¤ä¼šé‡‡ç”¨ä¸€ä¸ªå‡ºé—®é¢˜å°±æ‰¾å½“äº‹äººçš„ç­–ç•¥oneforone
+    //ç­–ç•¥strategyéœ€è¦çš„ç¬¬ä¸‰ä¸ªå¯¹è±¡decideréœ€è¦å®šä¹‰Functionå¯¹è±¡ï¼Œä½¿ç”¨applyè¿”å›ç›‘ç£æŒ‡ä»¤
     private SupervisorStrategy strategy =new OneForOneStrategy(3,
             Duration.create("1 minute"), new Function<Throwable, SupervisorStrategy.Directive>(){
         @Override
         public SupervisorStrategy.Directive apply(Throwable t) {
             if (t instanceof IOException) {
                 System.out.println("============IO Exception============");
-                //»Ö¸´ÔËĞĞ
+                //æ¢å¤è¿è¡Œ
                 return SupervisorStrategy.resume();
             } else if (t instanceof IndexOutOfBoundsException) {
                 System.out.println("============IndexOutOfBoundsException============");
-                //ÖØÆô
+                //é‡å¯
                 return SupervisorStrategy.restart();
             } else if (t instanceof SQLException) {
                 System.out.println("============SQLException============");
-                //Í£Ö¹
+                //åœæ­¢
                 return SupervisorStrategy.stop();
             } else {
                 System.out.println("============escalate============");
-                //Éı¼¶Ê§°Ü
+                //å‡çº§å¤±è´¥
                 return SupervisorStrategy.escalate();
             }
 
         }
     });
 
-    //·µ»Ø¼à¶½²ßÂÔÊ¹µÃÕâ¸ö±»ÓÃµ½
+    //è¿”å›ç›‘ç£ç­–ç•¥ä½¿å¾—è¿™ä¸ªè¢«ç”¨åˆ°
     @Override
     public SupervisorStrategy supervisorStrategy(){
         return strategy;
@@ -55,14 +55,14 @@ public class SuperVisorActorDemo extends UntypedActor {
     public void onReceive(Object message) throws Exception {
         if (message instanceof Terminated) {
             Terminated t = (Terminated) message;
-            System.out.println("¼à¿Øµ½" + t.getActor() + "ÒÑ¾­Í£Ö¹ÁË");
+            System.out.println("ç›‘æ§åˆ°" + t.getActor() + "å·²ç»åœæ­¢äº†");
         } else {
-            //½ÓÊÕ´«À´²éÑ¯µÄĞÅÏ¢
+            //æ¥æ”¶ä¼ æ¥æŸ¥è¯¢çš„ä¿¡æ¯
             System.out.println("stateCount:" + message);
         }
     }
-    ///²âÊÔ¹ı³Ì
-    //ÖØĞ´preStart()·½·¨´´½¨×ÓActor
+    ///æµ‹è¯•è¿‡ç¨‹
+    //é‡å†™preStart()æ–¹æ³•åˆ›å»ºå­Actor
     @Override
     public void preStart(){
         ActorRef workerActor =getContext().actorOf(Props.create(WorkerActorinSV.class),"workerActorInSV");
@@ -74,7 +74,7 @@ public class SuperVisorActorDemo extends UntypedActor {
 
 
 
-    //±àĞ´²âÊÔÖ÷·½·¨
+    //ç¼–å†™æµ‹è¯•ä¸»æ–¹æ³•
     public static void main(String args[]){
         ActorSystem system =ActorSystem.create("sys");
         ActorRef superref =system.actorOf(Props.create(SuperVisorActorDemo.class),"super");
@@ -83,23 +83,23 @@ public class SuperVisorActorDemo extends UntypedActor {
 
 }
 
-//ÑéÖ¤Ö¸ÁîÊÇ·ñÕı³£¹¤×÷½¨Á¢×ÓActor
+//éªŒè¯æŒ‡ä»¤æ˜¯å¦æ­£å¸¸å·¥ä½œå»ºç«‹å­Actor
 
 /***
- * ÖØĞ´preStart/postStop,preRestart,postRestart
- * ¹Û²ì²»Í¬Çé¿öÉúÃüÖÜÆÚÇé¿ö
+ * é‡å†™preStart/postStop,preRestart,postRestart
+ * è§‚å¯Ÿä¸åŒæƒ…å†µç”Ÿå‘½å‘¨æœŸæƒ…å†µ
  */
 class WorkerActorinSV extends UntypedActor{
-    //×´Ì¬Êı¾İ
+    //çŠ¶æ€æ•°æ®
     private int stateCount = 1;
     public void preStart() throws Exception{
-        //³õÊ¼»¯Ê±»á±»µ÷ÓÃ
+        //åˆå§‹åŒ–æ—¶ä¼šè¢«è°ƒç”¨
         super.preStart();
         System.out.println("worker actor preStart");
     }
     @Override
     public void postStop() throws Exception{
-        //Í£Ö¹Ê±»áµ÷ÓÃ¸Ã·½·¨£¬·¢ËÍÒ»¸öTerminatedĞÅÏ¢¸ø¼à¿ØÕß
+        //åœæ­¢æ—¶ä¼šè°ƒç”¨è¯¥æ–¹æ³•ï¼Œå‘é€ä¸€ä¸ªTerminatedä¿¡æ¯ç»™ç›‘æ§è€…
         super.postStop();
         System.out.println("worker actor preStart");
     }
@@ -113,14 +113,14 @@ class WorkerActorinSV extends UntypedActor{
 
     @Override
     public void postRestart(Throwable reason) throws Exception {
-        //ÖØÆôºóÔÚĞÂÊµÀı»áµ÷ÓÃ¸Ã·½·¨£¬Ä¬ÈÏµ÷ÓÃpreStart·½·¨
+        //é‡å¯ååœ¨æ–°å®ä¾‹ä¼šè°ƒç”¨è¯¥æ–¹æ³•ï¼Œé»˜è®¤è°ƒç”¨preStartæ–¹æ³•
         System.out.println("worker actor postRestart begin "+this.stateCount);
         super.postRestart(reason);
         System.out.println("worker actor postRestart end "+this.stateCount);
     }
     @Override
     public void onReceive(Object message) throws Exception {
-        //Ä£Äâ´´½¨¼ÆËãÈÎÎñ
+        //æ¨¡æ‹Ÿåˆ›å»ºè®¡ç®—ä»»åŠ¡
         this.stateCount++;
         if(message instanceof Exception){
             throw (Exception) message;
